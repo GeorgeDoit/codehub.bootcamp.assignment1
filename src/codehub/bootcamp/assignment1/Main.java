@@ -1,8 +1,6 @@
 package codehub.bootcamp.assignment1;
 
-import codehub.bootcamp.assignment1.model.Customer;
-import codehub.bootcamp.assignment1.model.OnlineCustomer;
-import codehub.bootcamp.assignment1.model.Product;
+import codehub.bootcamp.assignment1.model.*;
 import codehub.bootcamp.assignment1.tester.Tester;
 
 public class Main {
@@ -12,11 +10,40 @@ public class Main {
 //        Tester t = new Tester();
 //        t.TestCode();
 
-        Product p1 = new Product("mouse", 22.1, 23.1);
-        Product p2 = new Product("mouse2", 33.1, 34.1);
+        Product x1 = new Product("Painting Picasso.Guernica",100,1000);
+        Product x2 = new Product("Painting Tsarouxis. Naftis A",200,2000);
+        Product x4 = new Product("Chair. Luis XV",100,1000);
 
-        System.out.println("product with id: " + p1.getId() + " availability is " + p1.getAvailability());
-        p2.setAvailability(false);
-        System.out.println("product with id: " + p2.getId() + " availability is " + p2.getAvailability());
+//        Store mariaStore = new InventoryRetailStore();
+//        x1.setAvailability(false);
+//        mariaStore.buy(x1);
+//        mariaStore.buy(x2);
+//        mariaStore.buy(x2);
+//        mariaStore.buy(x4);
+//        mariaStore.sell(x1);
+//        x4.setAvailability(false);
+//        mariaStore.sell(x2);
+//        mariaStore.sell(x4);
+//        System.out.println(mariaStore.getRevenue());
+//        mariaStore.sell(x2);
+//        mariaStore.sell(x2);
+//        mariaStore.sell(x2);
+//        System.out.println(mariaStore.getRevenue());
+
+
+        Store dismosStore = new InventoryRetailStore();
+        dismosStore.buy(x1);
+        dismosStore.buy(x4);
+        dismosStore.sell(x1);
+        dismosStore.showInventory();
+        System.out.println(dismosStore.getRevenue());
+        dismosStore.sell(x1);
+        dismosStore.sell(x2);
+        x4.setReserved(true);
+        dismosStore.sell(x4);
+        dismosStore.showInventory();
+        System.out.println(dismosStore.getRevenue());
+
+
     }
 }

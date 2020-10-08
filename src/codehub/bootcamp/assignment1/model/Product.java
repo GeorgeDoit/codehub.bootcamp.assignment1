@@ -53,4 +53,11 @@ public class Product {
     public boolean getAvailability(){
         return availability;
     }
+
+    public void setReserved(boolean x){
+        if (x) {
+            System.out.println("Product Reserved");
+            setAvailability(false);
+        }
+    }
 }
