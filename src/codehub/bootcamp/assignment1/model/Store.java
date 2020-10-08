@@ -5,5 +5,7 @@ public interface Store {
     void sell(Product product);
 
     double getRevenue();
+    void clearOutInventory();
+    void showInventory();
 
 }

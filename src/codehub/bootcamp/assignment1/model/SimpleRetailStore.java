@@ -1,12 +1,12 @@
 package codehub.bootcamp.assignment1.model;
 
- public class SimpleRetailStore implements Store{
+ public abstract class SimpleRetailStore implements Store{
     private double totalBuyBalance;
     private double totalSellBalance;
 
     @Override
     public void buy(Product product) {
-        if (product.getAvailability()){
+        if (product.getAvailable()){
             totalBuyBalance += product.getPriceWhenBuy();
             System.out.println("My totalBuyBalance is: " + totalBuyBalance);
         } else {
@@ -23,6 +23,6 @@ package codehub.bootcamp.assignment1.model;
 
     @Override
     public double getRevenue() {
-        return totalSellBalance - totalBuyBalance;
+        return (totalSellBalance - totalBuyBalance);
     }
 }

@@ -11,9 +11,10 @@ public class InventoryRetailStore implements Store {
 
     public void buy(Product product){
 
-        if (product.getAvailability()){
+        if (product.getAvailable() && !productList.contains(product)){
             totalBuyBalance += product.getPriceWhenBuy();
             productList.add(product);
+            System.out.println("buying "+ product.getName());
             System.out.println("My totalBuyBalance is: " + totalBuyBalance);
 
         } else {
@@ -23,6 +24,7 @@ public class InventoryRetailStore implements Store {
 
     public void sell(Product product){
         if (productList.contains(product)){
+            System.out.println("Selling " + product.getName());
             totalSellBalance += product.getPriceWhenSell();
             System.out.println("My totalSellBalance is: " + totalSellBalance);
             productList.remove(product);
@@ -32,20 +34,29 @@ public class InventoryRetailStore implements Store {
     }
 
     public double getRevenue(){
-        return totalSellBalance - totalBuyBalance;
+        return (totalSellBalance - totalBuyBalance);
     }
 
     public List<Product> getInventory(){
         return productList;
     }
 
-    public void clearInventory(){
+    public void clearOutInventory(){
+        for (Product product : productList){
+            double salePrice = (product.getPriceWhenSell() - (10 * product.getPriceWhenSell()/100.0));
+            totalSellBalance += salePrice;
+            System.out.println("Selling " + product.getName() + " for " + salePrice);
+        }
         productList.clear();
     }
 
     public void showInventory(){
+
         for(Product product: getInventory()){
-            System.out.println(product);
+            System.out.println("Inventory has: " + product.getName());
+        }
+        if(productList.isEmpty()){
+            System.out.println("Inventory is empty");
         }
     }
 
