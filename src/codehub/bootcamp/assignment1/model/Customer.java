@@ -14,10 +14,6 @@ public class Customer {
         this.totalNumberOfTransactions = 0;
     }
 
-    public double getTotalCashPurchases() {
-        return totalCashPurchases;
-    }
-
     public Customer(String name, double totalCashPurchases, double totalCreditPurchases, int totalNumberOfTransactions){
         this.name = name;
         this.totalCashPurchases = totalCashPurchases;
@@ -25,12 +21,46 @@ public class Customer {
         this.totalNumberOfTransactions = totalNumberOfTransactions;
     }
 
-    public String buyInCash(){
-       return "Buying in cash";
+    public String getName() {
+        return name;
     }
 
-    public String buyByCredit(){
-        return "Buying by credit card";
+    public double getTotalCashPurchases() {
+        return totalCashPurchases;
+    }
+
+    public double getTotalCreditPurchases() {
+        return totalCreditPurchases;
+    }
+
+    public int getTotalNumberOfTransactions() {
+        return totalNumberOfTransactions;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTotalCashPurchases(double totalCashPurchases) {
+        this.totalCashPurchases = totalCashPurchases;
+    }
+
+    public void setTotalCreditPurchases(double totalCreditPurchases) {
+        this.totalCreditPurchases = totalCreditPurchases;
+    }
+
+    public void setTotalNumberOfTransactions(int totalNumberOfTransactions) {
+        this.totalNumberOfTransactions = totalNumberOfTransactions;
+    }
+
+    public boolean buyInCash = false;
+    public void buyInCash() {
+        buyInCash = true;
+    }
+
+    public boolean buyByCredit = false;
+    public void buyByCredit(){
+        buyByCredit = true;
     }
 
 }
