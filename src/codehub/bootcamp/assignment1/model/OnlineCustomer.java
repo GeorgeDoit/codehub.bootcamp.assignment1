@@ -78,12 +78,12 @@ public class OnlineCustomer extends Customer{
         }
     }
 
-    private int test;
-    public void setBonusDiscount(int discount){
-        this.test = discount;
+    private int bonus;
+    private void setBonusDiscount(int discount){
+        this.bonus = discount;
     }
 
     public int getBonusDiscount(){
-        return this.test;
+        return this.bonus;
     }
 }
