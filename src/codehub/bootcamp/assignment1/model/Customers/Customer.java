@@ -1,4 +1,4 @@
-package codehub.bootcamp.assignment1.model;
+package codehub.bootcamp.assignment1.model.Customers;
 
 public class Customer {
     private String name;

@@ -1,7 +1,8 @@
 package codehub.bootcamp.assignment1.App;
 
-import codehub.bootcamp.assignment1.model.*;
-import codehub.bootcamp.assignment1.tester.Tester;
+import codehub.bootcamp.assignment1.model.Products.Product;
+import codehub.bootcamp.assignment1.model.Stores.InventoryRetailStore;
+import codehub.bootcamp.assignment1.model.Stores.Store;
 
 public class Application {
 

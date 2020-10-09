@@ -1,4 +1,4 @@
-package codehub.bootcamp.assignment1.model;
+package codehub.bootcamp.assignment1.model.Customers;
 
 public class OnlineCustomer extends Customer{
 
@@ -52,8 +52,8 @@ public class OnlineCustomer extends Customer{
     public String checkTransactionPaymentType(){
         if (buyInCash){
             return "Cash";
-        } else if(getCustomerCategory() == CustomerCategory.GOVERNMENT && buyByCredit){
-            System.out.println("U can only buy in cash");
+        } else if(checkIfGovCustomer() && buyByCredit){
+            govBuyInCreditMessage();
             return "Cash";
         } else {
             return "Credit";
@@ -61,8 +61,8 @@ public class OnlineCustomer extends Customer{
     }
 
     public void buyByCredit(){
-        if (getCustomerCategory() == CustomerCategory.GOVERNMENT){
-            System.out.println("Government customers can only use Cash");
+        if (checkIfGovCustomer()){
+            govBuyInCreditMessage();
             buyByCredit = false;
         } else {
             buyByCredit = true;
@@ -71,7 +71,7 @@ public class OnlineCustomer extends Customer{
     public void checkForBonusDiscount(){
         int creditCardDiscount = 5;
 
-        if (checkTransactionPaymentType().equals("Credit") && getCustomerCategory() != CustomerCategory.GOVERNMENT){
+        if (checkTransactionPaymentType().equals("Credit") && !checkIfGovCustomer()){
             setBonusDiscount(creditCardDiscount + getCustomerCategory().discountPercentage);
         } else {
             setBonusDiscount(getCustomerCategory().discountPercentage);
@@ -85,5 +85,14 @@ public class OnlineCustomer extends Customer{
 
     public int getBonusDiscount(){
         return this.bonus;
+    }
+
+    private boolean checkIfGovCustomer(){
+        return (getCustomerCategory() == CustomerCategory.GOVERNMENT );
+    }
+
+    private void govBuyInCreditMessage(){
+        System.out.println("Government customers can only use Cash");
+
     }
 }

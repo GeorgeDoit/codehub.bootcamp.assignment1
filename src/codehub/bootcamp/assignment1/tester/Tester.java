@@ -1,7 +1,7 @@
 package codehub.bootcamp.assignment1.tester;
 
-import codehub.bootcamp.assignment1.model.Customer;
-import codehub.bootcamp.assignment1.model.OnlineCustomer;
+import codehub.bootcamp.assignment1.model.Customers.Customer;
+import codehub.bootcamp.assignment1.model.Customers.OnlineCustomer;
 
 public class Tester {
 

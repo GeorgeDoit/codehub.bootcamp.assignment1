@@ -1,4 +1,4 @@
-package codehub.bootcamp.assignment1.model;
+package codehub.bootcamp.assignment1.model.Products;
 
 public class Product {
     private int id;
