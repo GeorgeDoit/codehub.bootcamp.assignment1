@@ -9,11 +9,13 @@ public class Order {
 
     Customer customer;
     Product product;
-    Date date;
+    String date;
     String deliveryStatus;
+    //first-come first-served basis ? should i use a queue?
 
     public Order(Customer customer, Product product){
         this.customer = customer;
         this.product = product;
     }
+
 }

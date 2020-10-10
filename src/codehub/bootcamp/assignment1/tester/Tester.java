@@ -2,58 +2,38 @@ package codehub.bootcamp.assignment1.tester;
 
 import codehub.bootcamp.assignment1.model.Customers.Customer;
 import codehub.bootcamp.assignment1.model.Customers.OnlineCustomer;
+import codehub.bootcamp.assignment1.model.Products.Product;
+import codehub.bootcamp.assignment1.model.Stores.InventoryRetailStore;
+import codehub.bootcamp.assignment1.model.Stores.Store;
 
 public class Tester {
 
-    public void TestCode(){
+    public static void main(String[] args) {
 
-        Customer c1 = new Customer("George");
-        Customer c2 = new Customer("John",1.1,1.2,2);
+        Product x1 = new Product("Painting Picasso. Guernica", 100, 1000);
+        Product x2 = new Product("Painting Tsarouxis. Naftis A", 200, 2000);
+        Product x4 = new Product("Chair. Luis XV", 100, 1000);
+        System.out.println(x4.getName() + " has id=" + x4.getId());
+        Store dismosStore = new InventoryRetailStore();
+        dismosStore.buy(x1);
+        dismosStore.buy(x4);
+        dismosStore.sell(x1);
+        dismosStore.showInventory();
+        System.out.println(dismosStore.getRevenue());
+        dismosStore.sell(x1);
+        dismosStore.sell(x2);
+        x4.setAvailable(false);
+        dismosStore.buy(x4);
+        dismosStore.sell(x4);
+        dismosStore.buy(x4);
+        dismosStore.sell(x4);
+        dismosStore.showInventory();
+        System.out.println(dismosStore.getRevenue());
+        dismosStore.clearOutInventory();
+        dismosStore.showInventory();
+        System.out.println(dismosStore.getRevenue());
 
-        assert(c1.getTotalCashPurchases() == 0.0);
-        System.out.println("Customer's Constructor with name parameter working");
-        assert(c2.getTotalCashPurchases() == 1.1);
-        System.out.println("Customer's Constructor with all the parameters working");
-
-        c1.buyByCredit();
-
-        assert (c1.buyByCredit);
-        System.out.println("Customer's by by credit working");
-
-        c2.buyInCash();
-
-        assert (c2.buyInCash);
-        System.out.println("Customer's by in cash working");
-        System.out.println("Customer Class is working fine");
-        System.out.println("------------------------------");
 
 
-        OnlineCustomer o1 = new OnlineCustomer("Greece", "Gov");
-        OnlineCustomer o2 = new OnlineCustomer("George", 44.1, 1000.1, 2, "Doitsinis", OnlineCustomer.CustomerCategory.BUSINESS);
-
-        assert(o1.getTotalCashPurchases() == 0.0);
-        System.out.println("OnlineCustomer's Constructor with default parameters working");
-
-        assert (o2.getTotalCreditPurchases() == 1000.1);
-        System.out.println("OnlineCustomer's Constructor with custom parameters working");
-
-        o1.setCustomerCategory(OnlineCustomer.CustomerCategory.GOVERNMENT);
-        assert (o1.getCustomerCategory() == OnlineCustomer.CustomerCategory.GOVERNMENT);
-        System.out.println("OnlineCustomer's CustomerCategory setter and getter working");
-
-        o2.buyByCredit();
-
-        assert (o2.buyByCredit);
-        System.out.println("OnlineCustomer's buyByCredit() is working");
-
-        o1.buyInCash();
-        assert (o1.checkTransactionPaymentType().equals("Cash"));
-        assert (o2.checkTransactionPaymentType().equals("Credit"));
-        System.out.println("OnlineCustomer's checkTransactionPaymentType() is working");
-
-        o2.checkForBonusDiscount();
-        assert(o2.getBonusDiscount() == 7);
-        System.out.println("OnlineCustomer's checkForBonusDiscount() is working");
     }
-
 }

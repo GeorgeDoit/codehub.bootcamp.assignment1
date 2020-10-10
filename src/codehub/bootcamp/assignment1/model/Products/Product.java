@@ -5,7 +5,26 @@ public class Product {
     private String name;
     private double priceWhenBuy;
     private double priceWhenSell;
-    private boolean availability;
+    private static boolean availability;
+
+    private double totalPurchases;
+    private int totalNumberOfTransactions;
+
+    public void setTotalPurchases(double totalPurchases) {
+        this.totalPurchases += totalPurchases;
+    }
+
+    public void setTotalNumberOfTransactions(int totalNumberOfTransactions) {
+        this.totalNumberOfTransactions += totalNumberOfTransactions;
+    }
+
+    public double getTotalPurchases() {
+        return totalPurchases;
+    }
+
+    public int getTotalNumberOfTransactions() {
+        return totalNumberOfTransactions;
+    }
 
     static int counter = 1;
 
@@ -70,8 +89,13 @@ public class Product {
 
     public void setReserved(boolean x){
         if (x) {
-            System.out.println("Product Reserved");
+            reservedProductMessage();
             setAvailable(false);
         }
+    }
+
+    private void reservedProductMessage(){
+        System.out.println("Product Reserved");
+
     }
 }

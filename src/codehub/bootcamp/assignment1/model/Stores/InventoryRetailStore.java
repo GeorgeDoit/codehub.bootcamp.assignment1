@@ -11,21 +11,26 @@ public class InventoryRetailStore implements Store {
     private double totalSellBalance;
     private List<Product> productList = new ArrayList<Product>();
 
-    public void buy(Product product){
+    public boolean buy(Product product){
         if (checkForProductToBuy(product)){
             addItemToList(product);
             showBuyMessagesToUser(product, returnTotalBuyBalance(product));
+            return true;
         } else {
             productNotAvailableMessage(product);
+            return false;
         }
     }
 
-    public void sell(Product product){
+    public boolean sell(Product product){
         if (checkIfProductInList(product)){
             showSellMessagesToUser(product, returnTotalSellBalance(product, product.getPriceWhenSell()), product.getPriceWhenSell());
             removeProductFromList(product);
+            product.setAvailable(true);
+            return true;
         } else {
             productNotInInventoryMessage(product);
+            return false;
         }
     }
 
@@ -43,7 +48,6 @@ public class InventoryRetailStore implements Store {
     }
 
     public void showInventory(){
-
         for(Product product: getInventory()){
             System.out.println("Inventory has: " + product.getName());
         }
@@ -97,11 +101,13 @@ public class InventoryRetailStore implements Store {
     }
 
     private void clearingInventory(){
+
         for (Product product : productList){
             double salePrice = calculateSalePrice(product);
             returnTotalSellBalance(product, salePrice);
             showSellMessagesToUser(product, totalSellBalance, salePrice);
         }
+
     }
 
     private void clearingProductList(){

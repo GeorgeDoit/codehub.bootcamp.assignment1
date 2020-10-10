@@ -1,5 +1,8 @@
 package codehub.bootcamp.assignment1.model.Customers;
 
+import codehub.bootcamp.assignment1.model.Products.Product;
+import codehub.bootcamp.assignment1.model.Stores.Store;
+
 public class OnlineCustomer extends Customer{
 
     private String username;
@@ -31,6 +34,7 @@ public class OnlineCustomer extends Customer{
         super(name, totalCashPurchases, totalCreditPurchases, totalNumberOfTransactions);
         this.username = username;
         this.customerCategory = customerCategory;
+
     }
 
     public String getUsername() {
@@ -60,31 +64,48 @@ public class OnlineCustomer extends Customer{
         }
     }
 
-    public void buyByCredit(){
+    public void buyByCredit(Product product, Store store){
         if (checkIfGovCustomer()){
             govBuyInCreditMessage();
             buyByCredit = false;
         } else {
+            checkForBonusDiscount(product);
             buyByCredit = true;
+            showBuyingMessage(product.getName(), getNewSellPrice());
+            product.setTotalPurchases(getNewSellPrice());
+            product.setTotalNumberOfTransactions(1);
+            setTotalCreditPurchases(getNewSellPrice());
+            setTotalNumberOfTransactions(1);
+
         }
     }
-    public void checkForBonusDiscount(){
+
+    public void buyInCash(Product product, Store store){
+        checkForBonusDiscount(product);
+        showBuyingMessage(product.getName(), getNewSellPrice());
+        product.setTotalPurchases(getNewSellPrice());
+        product.setTotalNumberOfTransactions(1);
+        setTotalCashPurchases(getNewSellPrice());
+        setTotalNumberOfTransactions(1);
+    }
+
+    private void checkForBonusDiscount(Product product){
         int creditCardDiscount = 5;
 
         if (checkTransactionPaymentType().equals("Credit") && !checkIfGovCustomer()){
-            setBonusDiscount(creditCardDiscount + getCustomerCategory().discountPercentage);
+            setNewSellPrice(creditCardDiscount + getCustomerCategory().discountPercentage, product.getPriceWhenSell());
         } else {
-            setBonusDiscount(getCustomerCategory().discountPercentage);
+            setNewSellPrice (getCustomerCategory().discountPercentage, product.getPriceWhenSell());
         }
     }
 
-    private int bonus;
-    private void setBonusDiscount(int discount){
-        this.bonus = discount;
+    private double newSellPrice;
+    private void setNewSellPrice(int discount, double price){
+        newSellPrice = price - (discount * price/100);
     }
 
-    public int getBonusDiscount(){
-        return this.bonus;
+    public double getNewSellPrice(){
+        return this.newSellPrice;
     }
 
     private boolean checkIfGovCustomer(){
@@ -93,6 +114,6 @@ public class OnlineCustomer extends Customer{
 
     private void govBuyInCreditMessage(){
         System.out.println("Government customers can only use Cash");
-
     }
+
 }

@@ -7,4 +7,11 @@ import codehub.bootcamp.assignment1.model.Stores.InventoryRetailStore;
 
 public class OrdersInventoryRetailStore extends InventoryRetailStore {
 
+    public Order createOrder(Customer customer, Product product){
+        return new Order(customer, product);
+    }
+
+    public void executeOrder(){
+
+    }
 }

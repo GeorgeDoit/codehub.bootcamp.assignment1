@@ -1,10 +1,18 @@
 package codehub.bootcamp.assignment1.model.Customers;
 
+import codehub.bootcamp.assignment1.model.Products.Product;
+import codehub.bootcamp.assignment1.model.Stores.Store;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Customer {
+
     private String name;
     private double totalCashPurchases;
     private double totalCreditPurchases;
     private int totalNumberOfTransactions;
+    public static List<Customer> listOfCustomers = new ArrayList<Customer>();
 
     public Customer(String name) {
         this(name, 0.0, 0.0, 0);
@@ -12,6 +20,7 @@ public class Customer {
         this.totalCashPurchases = 0.0;
         this.totalCreditPurchases = 0.0;
         this.totalNumberOfTransactions = 0;
+
     }
 
     public Customer(String name, double totalCashPurchases, double totalCreditPurchases, int totalNumberOfTransactions){
@@ -19,7 +28,13 @@ public class Customer {
         this.totalCashPurchases = totalCashPurchases;
         this.totalCreditPurchases = totalCreditPurchases;
         this.totalNumberOfTransactions = totalNumberOfTransactions;
+        listOfCustomers.add(this);
     }
+
+    public static List<Customer> getListOfCustomers() {
+        return listOfCustomers;
+    }
+
 
     public String getName() {
         return name;
@@ -42,25 +57,43 @@ public class Customer {
     }
 
     public void setTotalCashPurchases(double totalCashPurchases) {
-        this.totalCashPurchases = totalCashPurchases;
+        this.totalCashPurchases += totalCashPurchases;
     }
 
     public void setTotalCreditPurchases(double totalCreditPurchases) {
-        this.totalCreditPurchases = totalCreditPurchases;
+        this.totalCreditPurchases += totalCreditPurchases;
     }
 
     public void setTotalNumberOfTransactions(int totalNumberOfTransactions) {
-        this.totalNumberOfTransactions = totalNumberOfTransactions;
+        this.totalNumberOfTransactions += totalNumberOfTransactions;
     }
 
     public boolean buyInCash = false;
-    public void buyInCash() {
+    public void buyInCash(Product product, Store store) {
+
+        setTotalCashPurchases(product.getPriceWhenSell());
+        setTotalNumberOfTransactions(1);
+        product.setTotalPurchases(product.getPriceWhenSell());
+        product.setTotalNumberOfTransactions(1);
+        showBuyingMessage(product.getName() , product.getPriceWhenSell());
         buyInCash = true;
     }
 
     public boolean buyByCredit = false;
-    public void buyByCredit(){
-        buyByCredit = true;
+    public void buyByCredit(Product product, Store store){
+        if(product.getAvailable()){
+            setTotalCreditPurchases(product.getPriceWhenSell());
+            setTotalNumberOfTransactions(1);
+            product.setTotalPurchases(product.getPriceWhenSell());
+            product.setTotalNumberOfTransactions(1);
+            showBuyingMessage(product.getName() , product.getPriceWhenSell());
+            buyByCredit = true;
+            product.setAvailable(false);
+        }
+    }
+
+    public void showBuyingMessage(String product, double price){
+        System.out.println("Buying : " + product + " for " + price);
     }
 
 }
