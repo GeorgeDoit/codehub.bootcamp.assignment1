@@ -5,10 +5,13 @@ import codehub.bootcamp.assignment1.model.Customers.OnlineCustomer;
 import codehub.bootcamp.assignment1.model.Orders.Order;
 import codehub.bootcamp.assignment1.model.Products.Product;
 import codehub.bootcamp.assignment1.model.Stores.OrdersInventoryRetailStore;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class Tester {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         Product x1 = new Product("Painting Picasso. Guernica", 100, 1000);
         Product x2 = new Product("Painting Tsarouxis. Naftis A", 200, 2000);
@@ -66,6 +69,16 @@ public class Tester {
 
         System.out.println("The total number of purchases for all products is " + totalProductNumberOfTransactions + " and the total cost of all purchases is " + totalProductCostOfTransactions + "€.");
 
+//Data to write in File using PrintWriter
+        PrintWriter writer1 = null;
+        writer1 = new PrintWriter(new File("C:\\Users\\AELGD\\Desktop\\test.txt"));
+        writer1.write(("Customer named " + o1.getName() + " has made a total of " + o1.getTotalNumberOfTransactions() + " transactions and their total cost of purchases is " + o1.getTotalCostOfPurchases() +" €. \n"));
+        writer1.write(("Prodcut named " + x1.getName() + " has been bought a total of " + x1.getTotalNumberOfTransactions() + " times and the total cost of purchases is " + x1.getTotalPurchases() + " €.\n"));
+        writer1.write(("The total number of transactions for all customers is " + totalCustomerNumberOfTransactions + " and their total cost of all purchases is " + totalCustomerCostOfTransactions + "€.\n"));
+        writer1.write(("The total number of purchases for all products is " + totalProductNumberOfTransactions + " and the total cost of all purchases is " + totalProductCostOfTransactions + "€."));
+
+        writer1.flush();
+        writer1.close();
     }
 
 }
