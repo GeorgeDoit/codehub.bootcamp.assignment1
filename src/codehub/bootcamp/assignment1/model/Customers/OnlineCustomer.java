@@ -1,7 +1,11 @@
 package codehub.bootcamp.assignment1.model.Customers;
 
+import codehub.bootcamp.assignment1.model.Orders.Order2;
 import codehub.bootcamp.assignment1.model.Products.Product;
+import codehub.bootcamp.assignment1.model.Stores.OrdersInventoryRetailStore;
 import codehub.bootcamp.assignment1.model.Stores.Store;
+
+import java.util.List;
 
 public class OnlineCustomer extends Customer{
 
@@ -25,17 +29,19 @@ public class OnlineCustomer extends Customer{
 
     }
 
-    public OnlineCustomer(String name, String username) {
+    public OnlineCustomer(String name, String username, CustomerCategory customerCategory) {
         super(name);
-        this.username = username;
-    }
-
-    public OnlineCustomer(String name, double totalCashPurchases, double totalCreditPurchases, int totalNumberOfTransactions, String username, CustomerCategory customerCategory) {
-        super(name, totalCashPurchases, totalCreditPurchases, totalNumberOfTransactions);
         this.username = username;
         this.customerCategory = customerCategory;
 
     }
+
+    public OnlineCustomer(String name, double totalCashPurchases, double totalCreditPurchases, int totalNumberOfTransactions, double totalCostOfPurchases, String username, CustomerCategory customerCategory) {
+        super(name, totalCashPurchases, totalCreditPurchases, totalNumberOfTransactions, totalCostOfPurchases);
+        this.username = username;
+        this.customerCategory = customerCategory;
+    }
+
 
     public String getUsername() {
         return username;
@@ -77,6 +83,7 @@ public class OnlineCustomer extends Customer{
             setTotalCreditPurchases(getNewSellPrice());
             setTotalNumberOfTransactions(1);
 
+
         }
     }
 
@@ -87,9 +94,10 @@ public class OnlineCustomer extends Customer{
         product.setTotalNumberOfTransactions(1);
         setTotalCashPurchases(getNewSellPrice());
         setTotalNumberOfTransactions(1);
+
     }
 
-    private void checkForBonusDiscount(Product product){
+    public void checkForBonusDiscount(Product product){
         int creditCardDiscount = 5;
 
         if (checkTransactionPaymentType().equals("Credit") && !checkIfGovCustomer()){
@@ -100,7 +108,7 @@ public class OnlineCustomer extends Customer{
     }
 
     private double newSellPrice;
-    private void setNewSellPrice(int discount, double price){
+    public void setNewSellPrice(int discount, double price){
         newSellPrice = price - (discount * price/100);
     }
 
@@ -108,11 +116,11 @@ public class OnlineCustomer extends Customer{
         return this.newSellPrice;
     }
 
-    private boolean checkIfGovCustomer(){
+    public boolean checkIfGovCustomer(){
         return (getCustomerCategory() == CustomerCategory.GOVERNMENT );
     }
 
-    private void govBuyInCreditMessage(){
+    public void govBuyInCreditMessage(){
         System.out.println("Government customers can only use Cash");
     }
 

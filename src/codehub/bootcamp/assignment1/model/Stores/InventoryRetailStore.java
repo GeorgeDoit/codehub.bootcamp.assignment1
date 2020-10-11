@@ -64,7 +64,7 @@ public class InventoryRetailStore implements Store {
         return (totalBuyBalance += product.getPriceWhenBuy());
     }
 
-    private List<Product> addItemToList(Product product){
+    public List<Product> addItemToList(Product product){
         productList.add(product);
         return productList;
     }
@@ -81,6 +81,7 @@ public class InventoryRetailStore implements Store {
     private boolean checkIfProductInList(Product product){
         return productList.contains(product);
     }
+
     private double returnTotalSellBalance(Product product, double priceWhenSell){
         return (totalSellBalance += priceWhenSell);
 
