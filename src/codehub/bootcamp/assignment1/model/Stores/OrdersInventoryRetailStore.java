@@ -1,20 +1,21 @@
 package codehub.bootcamp.assignment1.model.Stores;
 
 import codehub.bootcamp.assignment1.model.Customers.Customer;
-import codehub.bootcamp.assignment1.model.Customers.OnlineCustomer;
-import codehub.bootcamp.assignment1.model.Orders.Order2;
+import codehub.bootcamp.assignment1.model.Orders.Order;
 import codehub.bootcamp.assignment1.model.Products.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class OrdersInventoryRetailStore extends InventoryRetailStore {
 
-    public boolean paymentType;
-    public Order2 Order2Test(Customer customer, Product product){
+    public String paymentType;
+    public Order Order2Test(Customer customer, Product product, String paymentType){
 
+        this.paymentType = paymentType;
         customer.getCustomerProducts().add(product);
-        return new Order2(customer, customer.getCustomerProducts());
+        return new Order(customer, customer.getCustomerProducts());
     }
 
     public void executeOrder(){
@@ -22,22 +23,24 @@ public class OrdersInventoryRetailStore extends InventoryRetailStore {
     }
 
     public Product getCustomerProducts(Customer customer){
-        if(!(getCustomersListOfProducts(customer) == null)){
-            for(Product product : getCustomersListOfProducts(customer)){
-                System.out.println(customer.getName() + " " + product.getPriceWhenSell());
-                customer.setTotalNumberOfTransactions(1);
-                customer.setTotalCostOfPurchases(product.getPriceWhenSell());
-
-                product.setTotalNumberOfTransactions(1);
-                product.setTotalPurchases(product.getPriceWhenSell());
-               return product;
+        List<Product> productList = getCustomersListOfProducts(customer);
+        if((productList != null)){
+            for(Product product : productList){
+                buyProduct(customer,product);
             }
-            System.out.println(customer.getName() + " total number of trancations =" + customer.getTotalNumberOfTransactions()
-                                +" cost of pychases " + customer.getTotalCostOfPurchases());
         }else {
             System.out.println("No products");
         }
         return null;
+    }
+
+    public void buyProduct(Customer customer, Product product){
+//        System.out.println(paymentType);
+            if(paymentType.equals("Cash")){
+                customer.buyInCash(product);
+            }else {
+                customer.buyByCredit(product);
+            }
     }
 
     public List<Product> getCustomersListOfProducts(Customer customer){
@@ -52,13 +55,11 @@ public class OrdersInventoryRetailStore extends InventoryRetailStore {
 
     public List<List<Product>> mapToList(Customer customer){
 
-
-        List<List<Product>> productResult = Order2.getMultiMap1().entrySet()
+        List<List<Product>> productResult = Order.getMultiMap1().entrySet()
         .stream()
         .filter(e -> e.getKey().equals(customer))
         .map(x -> x.getValue())
         .collect(Collectors.toList());
-
 
         return productResult;
 

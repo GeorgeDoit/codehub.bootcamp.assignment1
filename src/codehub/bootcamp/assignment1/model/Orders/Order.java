@@ -6,7 +6,7 @@ import codehub.bootcamp.assignment1.model.Products.Product;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Order2 {
+public class Order {
 
     Customer customer;
     Product product;
@@ -17,7 +17,7 @@ public class Order2 {
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
-    public Order2(Customer customer,List<Product> productList){
+    public Order(Customer customer, List<Product> productList){
 
         this.customer = customer;
         this.date = new Date();

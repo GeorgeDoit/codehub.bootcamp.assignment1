@@ -1,6 +1,5 @@
 package codehub.bootcamp.assignment1.model.Customers;
 
-import codehub.bootcamp.assignment1.model.Orders.Order2;
 import codehub.bootcamp.assignment1.model.Products.Product;
 import codehub.bootcamp.assignment1.model.Stores.OrdersInventoryRetailStore;
 import codehub.bootcamp.assignment1.model.Stores.Store;
@@ -16,10 +15,8 @@ public class Customer {
     private int totalNumberOfTransactions;
     private double totalCostOfPurchases;
 
-    public static List<Customer> listOfCustomers = new ArrayList<Customer>();
+    public static List<Customer> listOfAllCustomers = new ArrayList<Customer>();
     public List<Product> customerProducts = new ArrayList<>();
-
-
 
     public Customer(String name) {
         this(name, 0.0, 0.0, 0, 0.0);
@@ -37,11 +34,11 @@ public class Customer {
         this.totalCreditPurchases = totalCreditPurchases;
         this.totalNumberOfTransactions = totalNumberOfTransactions;
         this.totalCostOfPurchases = totalCostOfPurchases;
-        listOfCustomers.add(this);
+        listOfAllCustomers.add(this);
     }
 
-    public static List<Customer> getListOfCustomers() {
-        return listOfCustomers;
+    public List<Customer> getListOfAllCustomers() {
+        return listOfAllCustomers;
     }
 
     public String getName() {
@@ -68,16 +65,18 @@ public class Customer {
         this.totalCashPurchases += totalCashPurchases;
     }
 
+    public void setTotalCreditPurchases(double totalCreditPurchases) {
+        System.out.println(totalCreditPurchases);
+
+        this.totalCreditPurchases += totalCreditPurchases;
+    }
+
     public double getTotalCostOfPurchases() {
         return totalCostOfPurchases;
     }
 
     public void setTotalCostOfPurchases(double totalCostOfPurchases) {
         this.totalCostOfPurchases += totalCostOfPurchases;
-    }
-
-    public void setTotalCreditPurchases(double totalCreditPurchases) {
-        this.totalCreditPurchases += totalCreditPurchases;
     }
 
     public void setTotalNumberOfTransactions(int totalNumberOfTransactions) {
@@ -87,7 +86,7 @@ public class Customer {
 
     public boolean buyInCash = false;
 
-    public void buyInCash(Product product, Store store) {
+    public void buyInCash(Product product) {
 
         setTotalCashPurchases(product.getPriceWhenSell());
         setTotalNumberOfTransactions(1);
@@ -99,7 +98,7 @@ public class Customer {
     }
 
     public boolean buyByCredit = false;
-    public void buyByCredit(Product product, Store store){
+    public void buyByCredit(Product product){
         if(product.getAvailable()){
             setTotalCreditPurchases(product.getPriceWhenSell());
             setTotalNumberOfTransactions(1);
@@ -108,7 +107,6 @@ public class Customer {
             showBuyingMessage(product.getName() , product.getPriceWhenSell());
             buyByCredit = true;
             product.setAvailable(false);
-
         }
     }
 

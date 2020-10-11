@@ -1,5 +1,10 @@
 package codehub.bootcamp.assignment1.model.Products;
 
+import codehub.bootcamp.assignment1.model.Customers.Customer;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Product {
     private int id;
     private String name;
@@ -9,6 +14,8 @@ public class Product {
 
     private double totalPurchases;
     private int totalNumberOfTransactions;
+
+    public static List<Product> listOfPAllProducts = new ArrayList<>();
 
     public void setTotalPurchases(double totalPurchases) {
         this.totalPurchases += totalPurchases;
@@ -41,6 +48,7 @@ public class Product {
         this.priceWhenBuy = priceWhenBuy;
         this.priceWhenSell = priceWhenSell;
         this.availability = true;
+        listOfPAllProducts.add(this);
     }
 
     public void setName(String name) {
@@ -85,6 +93,10 @@ public class Product {
 
     public boolean getAvailable(){
         return availability;
+    }
+
+    public List<Product> getListOfAllProducts(){
+        return listOfPAllProducts;
     }
 
     public void setReserved(boolean x){

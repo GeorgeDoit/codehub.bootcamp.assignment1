@@ -1,11 +1,7 @@
 package codehub.bootcamp.assignment1.model.Customers;
 
-import codehub.bootcamp.assignment1.model.Orders.Order2;
 import codehub.bootcamp.assignment1.model.Products.Product;
-import codehub.bootcamp.assignment1.model.Stores.OrdersInventoryRetailStore;
 import codehub.bootcamp.assignment1.model.Stores.Store;
-
-import java.util.List;
 
 public class OnlineCustomer extends Customer{
 
@@ -70,7 +66,7 @@ public class OnlineCustomer extends Customer{
         }
     }
 
-    public void buyByCredit(Product product, Store store){
+    public void buyByCredit(Product product){
         if (checkIfGovCustomer()){
             govBuyInCreditMessage();
             buyByCredit = false;
@@ -80,19 +76,20 @@ public class OnlineCustomer extends Customer{
             showBuyingMessage(product.getName(), getNewSellPrice());
             product.setTotalPurchases(getNewSellPrice());
             product.setTotalNumberOfTransactions(1);
+
+            setTotalCostOfPurchases(getNewSellPrice());
             setTotalCreditPurchases(getNewSellPrice());
             setTotalNumberOfTransactions(1);
-
-
         }
     }
 
-    public void buyInCash(Product product, Store store){
+    public void buyInCash(Product product){
         checkForBonusDiscount(product);
         showBuyingMessage(product.getName(), getNewSellPrice());
         product.setTotalPurchases(getNewSellPrice());
         product.setTotalNumberOfTransactions(1);
         setTotalCashPurchases(getNewSellPrice());
+        setTotalCostOfPurchases(getNewSellPrice());
         setTotalNumberOfTransactions(1);
 
     }
